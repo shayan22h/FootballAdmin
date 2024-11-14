@@ -14,7 +14,8 @@ text_handler::~text_handler(){
         in_stream.close();
     }
 }
-void text_handler::text_handler_read_file(string& fileNameStr)
+//void text_handler_read_file(const std::string& fileNameStr, std::array<std::vector<std::string>, 10>& nameof)
+void text_handler::text_handler_read_file(string& fileNameStr, vector<string> (&nameof)[28])
 {
  if (in_stream.is_open()) {
         in_stream.close(); // Close previous file if open
@@ -30,8 +31,12 @@ void text_handler::text_handler_read_file(string& fileNameStr)
 
         // Output the content of the file to the console, similar to 'cat'
     std::string line;
+    int index = 0;
+
     while (std::getline(in_stream, line)) {
-        std::cout << line << "\n";
+        nameof[index].push_back("Player " + std::to_string(index));
+        index++;
+        std::cout << "here is : "<< line << "\n";
     }
     in_stream.close(); // Close file after reading
 };

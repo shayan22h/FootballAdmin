@@ -1,0 +1,5 @@
+#Ignore the Output Directory
+/Build/Output/
+
+#TextFile
+/TextFile
