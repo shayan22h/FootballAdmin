@@ -22,11 +22,11 @@ void DisplayHandler::GenerateHTML(const TeamsContext_t& team_context, const std:
 <style>
     body {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 20px;
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+        grid-template-rows: auto auto; /* Two rows, adjust automatically */
+        gap: 20px; /* Space between grid items */
         margin: 0;
-        padding: 0;
+        padding: 20px;
         font-family: Arial, sans-serif;
         background-color: #f9f9f9;
     }
@@ -38,6 +38,26 @@ void DisplayHandler::GenerateHTML(const TeamsContext_t& team_context, const std:
         text-align: center;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .team:nth-child(1) {
+        background-color: #0f83cf; /* Blue */
+    }
+
+    .team:nth-child(2) {
+        background-color: #29c00b; /* Green */
+    }
+
+    .team:nth-child(3) {
+        background-color: yellow; /* Yellow */
+    }
+
+    .team:nth-child(4) {
+        background-color: pink; /* Pink */
     }
 
     .team h2 {
@@ -64,35 +84,19 @@ void DisplayHandler::GenerateHTML(const TeamsContext_t& team_context, const std:
     }
 
     li {
-        font-size: 1em;
+        font-size: 2em;
         margin: 5px 0;
     }
 
     .captain {
-        font-size: 1.5em;
+        font-size: 2.5em;
         font-weight: bold;
         color: black;
-    }
-
-    .team:nth-child(1) {
-        background-color: #0f83cf;
-    }
-
-    .team:nth-child(2) {
-        background-color: #29c00b;
-    }
-
-    .team:nth-child(3) {
-        background-color: yellow;
-    }
-
-    .team:nth-child(4) {
-        background-color: pink;
     }
 </style>
 </head>
 <body>
-    <div class="container">
+
 )";
     string TeamClubsName[12] = { "ManCity", "LiverPool", "Chelsea", "Spurs" ,
     "PSG", "Inter","AC Milan","Barca", "RealMadrid","Roma", "Dortmund", "Napoli"};

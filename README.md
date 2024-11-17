@@ -18,7 +18,7 @@ v0.2 -> TeamGenerator Implemented:
 The N number of teams based on the number of captains are randomly generated
 
 v0.3 -> DisplayHandler Implemented:
-The final Outcome has to be displayed into an excel file.
+The final Outcome has to be displayed in html file.
 
 v1.0 -> Tested and working version of all the components (fully functioning application based on the Requirements)
 
