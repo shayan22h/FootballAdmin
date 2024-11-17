@@ -1,4 +1,6 @@
-
+#include <string.h>
+#include <algorithm>  // For std::shuffle
+#include <random>
 #include "DisplayHandler.h"
 
 DisplayHandler::DisplayHandler(){};
@@ -6,8 +8,8 @@ DisplayHandler::DisplayHandler(){};
 DisplayHandler::~DisplayHandler(){};
 
 void DisplayHandler::GenerateHTML(const TeamsContext_t& team_context, const std::string& filename) {
-    std::ofstream html_file(filename);
-    if (!html_file) {
+   std::ofstream html_file(filename);
+   if (!html_file) {
         std::cerr << "Error: Unable to create HTML file.\n";
         return;
     }
@@ -17,55 +19,105 @@ void DisplayHandler::GenerateHTML(const TeamsContext_t& team_context, const std:
 <html>
 <head>
     <title>Teams</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            display: grid;
-            grid-template-rows: 50% 50%;
-            grid-template-columns: 50% 50%;
-            height: 100vh;
-        }
-        .team {
-            border: 2px solid #000;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .team:nth-child(1) { background-color: #ffcccc; } /* Team A: Top Left */
-        .team:nth-child(2) { background-color: #ccffcc; } /* Team B: Top Right */
-        .team:nth-child(3) { background-color: #ccccff; } /* Team C: Bottom Left */
-        .team:nth-child(4) { background-color: #ffffcc; } /* Team D: Bottom Right */
-        .team h2 {
-            text-align: center;
-            margin-top: 0;
-        }
-        .team ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .team li {
-            margin: 5px 0;
-        }
-        .captain {
-            font-weight: bold;
-            color: red;
-        }
-    </style>
+<style>
+    body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+    }
+
+    .team {
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .team h2 {
+        background-color: #f4f4f4;
+        padding: 10px;
+        font-size: 1.5em;
+        margin: 0;
+        border-radius: 5px;
+    }
+
+    .team-logo {
+        width: 120px;
+        height: auto;
+        margin: 15px 0;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        font-size: 1em;
+        margin: 5px 0;
+    }
+
+    .captain {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: black;
+    }
+
+    .team:nth-child(1) {
+        background-color: #0f83cf;
+    }
+
+    .team:nth-child(2) {
+        background-color: #29c00b;
+    }
+
+    .team:nth-child(3) {
+        background-color: yellow;
+    }
+
+    .team:nth-child(4) {
+        background-color: pink;
+    }
+</style>
 </head>
 <body>
     <div class="container">
 )";
+    string TeamClubsName[12] = { "ManCity", "LiverPool", "Chelsea", "Spurs" ,
+    "PSG", "Inter","AC Milan","Barca", "RealMadrid","Roma", "Dortmund", "Napoli"};
 
+    // Random number generator
+    random_device rd;
+    mt19937 gen(rd());
+
+    // Shuffle the array of vectors
+    shuffle(begin(TeamClubsName), end(TeamClubsName), gen);
+
+    bool captainFlag = false;
     // Generate teams
     for (int i = 0; i < team_context.noOfTeams; ++i) {
+        captainFlag = false;
+        string logoFile = TeamClubsName[i] + "_logo.png"; // Construct logo filename
         html_file << "<div class=\"team\">\n";
-        html_file << "<h2>Team " << char('A' + i) << "</h2>\n<ul>\n";
+        html_file << "<h2>" << TeamClubsName[i] << "</h2>\n"; // Club Name
+        html_file << "<img src=\"" << logoFile << "\" alt=\"" << TeamClubsName[i]
+                << " Logo\" class=\"team-logo\">\n"; // Team Logo
+        html_file << "<ul>\n";
         for (const auto& player : team_context.Teams[i]) {
-            if (player.back() == 'c') {
-                html_file << "<li class=\"captain\">" << player.substr(0, player.size() - 3) << " (Captain)</li>\n";
+            if (!captainFlag) {
+                captainFlag = true;
+                html_file << "<li class=\"captain\">[Captain] " << player << "</li>\n";
             } else {
                 html_file << "<li>" << player << "</li>\n";
             }
