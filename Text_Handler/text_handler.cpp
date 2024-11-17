@@ -32,10 +32,9 @@ string& _refToCaptain)
         if (regex_match(_refLine, matches, NameExtractionPattern)) 
         {
             _refStrToPlayerName = matches[1]; // Group 1: The player's name
-            std::cout << " Player Name : " +  _refStrToPlayerName << endl;
+            //std::cout << " Player Name : " +  _refStrToPlayerName << endl;
             if (matches[2].matched) 
             {
-                std::cout << " Captain Detected " << endl;
                 _refToCaptain = matches[2]; // Group 2: Captain marker ("c")
             } else 
             {
@@ -91,4 +90,4 @@ void text_handler::text_handler_read_file(string& fileNameStr, vector<string> (&
         }
     }
     in_stream.close(); // Close file after reading
-};
+}
