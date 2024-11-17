@@ -6,9 +6,12 @@
 
 #include "Text_Handler/text_handler.h"
 #include "TeamGenerator/TeamGenerator.h"
+#include "DisplayHandler/DisplayHandler.h"
 using namespace std;
 
-#define file_name "../../TextFile/Sample.txt"
+#define TEXT_FILE_NAME "../../TextFile/Sample.txt"
+
+#define HTML_FILE_NAME "../../HTMLFile/display.html"
 
 
 
@@ -16,8 +19,9 @@ int main() {
 
     text_handler txtHanlder;
     TeamGenerator teamObj(MAX_NO_OF_TEAMS,MAX_NO_OF_PLAYERS);
+    DisplayHandler displayObj;
 
-    string fileNameStr = file_name;
+    string fileNameStr = TEXT_FILE_NAME;
 
     vector <string> NameOfPlayers[MAX_NO_OF_PLAYERS];
 
@@ -31,6 +35,7 @@ int main() {
     if (team_context.noOfTeams)
     {
         teamObj.GenerateTeams(NameOfPlayers,&team_context);
+        displayObj.GenerateHTML(team_context,HTML_FILE_NAME);
     }
     else
     {

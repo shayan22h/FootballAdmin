@@ -16,7 +16,8 @@ LIBS = -L/usr/local/lib -ltinyxml2
 # Sources
 SRCS = ../main.cpp \
 	   ../Text_Handler/text_handler.cpp \
-	   ../TeamGenerator/TeamGenerator.cpp
+	   ../TeamGenerator/TeamGenerator.cpp \
+	   ../DisplayHandler/DisplayHandler.cpp
 
 # Object files
 OBJS = $(patsubst ../%.cpp, $(OUTPUT_DIR)/%.o, $(SRCS))

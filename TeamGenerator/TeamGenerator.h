@@ -1,3 +1,6 @@
+#ifndef TEAM_GENERATOR_H
+#define TEAM_GENERATOR_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -28,3 +31,5 @@ class TeamGenerator{
 
 
 };
+
+#endif //TEAM_GENERATOR_H
